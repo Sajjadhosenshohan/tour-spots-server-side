@@ -103,8 +103,14 @@ async function run() {
 
     // get countries data
      // read all
-     app.get('/countriesData', async (req, res) => {
+    app.get('/countriesData', async (req, res) => {
       const cursor = countriesCollection.find()
+      const result = await cursor.toArray()
+      res.send(result)
+    })
+    
+    app.get('/allTour', async (req, res) => {
+      const cursor = tourCollection.find()
       const result = await cursor.toArray()
       res.send(result)
     })
