@@ -48,6 +48,16 @@ async function run() {
       const result = await cursor.toArray()
       res.send(result)
     })
+
+    // // read by email
+    app.get('/myList/:email', async (req, res) => {
+      const email = req.params.email
+      console.log(email)
+      const query = { email: (email) };
+      const result = await tourCollection.find(query).toArray();
+      // console.log(result)
+      res.send(result)
+    })
     // read a item
     app.get('/views/:id', async (req, res) => {
       const id = req.params.id
@@ -55,7 +65,8 @@ async function run() {
       const result = await tourCollection.findOne(cursor);
       res.send(result)
     })
-     
+
+
     // delete
     app.delete('/delete/:id', async (req, res) => {
       const id = req.params.id
@@ -64,7 +75,7 @@ async function run() {
 
 
       const result = await tourCollection.deleteOne(query);
-      
+
       res.send(result)
     })
     // update
@@ -74,6 +85,7 @@ async function run() {
       const result = await tourCollection.findOne(cursor);
       res.send(result)
     })
+    // update 
     app.put('/update/:id', async (req, res) => {
       const id = req.params.id
       const filter = { _id: new ObjectId(id) };
@@ -82,17 +94,17 @@ async function run() {
       // Specify the update to set a value for the plot field
       const update = {
         $set: {
-          // name:updateOne.name,
-          // email:updateOne.email,
-          tourists_spot_name:updateOne.tourists_spot_name,
-          country_Name:updateOne.country_Name, 
-          location:updateOne.location, 
-          average_cost:updateOne.average_cost, 
-          totalVisitorsPerYear:updateOne.totalVisitorsPerYear, 
-          travel_time:updateOne.travel_time, 
-          seasonality:updateOne.seasonality, 
-          short_description:updateOne.short_description, 
-          image:updateOne.image,
+          name: updateOne.name,
+          email: updateOne.email,
+          tourists_spot_name: updateOne.tourists_spot_name,
+          country_Name: updateOne.country_Name,
+          location: updateOne.location,
+          average_cost: updateOne.average_cost,
+          totalVisitorsPerYear: updateOne.totalVisitorsPerYear,
+          travel_time: updateOne.travel_time,
+          seasonality: updateOne.seasonality,
+          short_description: updateOne.short_description,
+          image: updateOne.image,
         },
       };
       // Update the first document that matches the filter
@@ -102,20 +114,20 @@ async function run() {
     })
 
     // get countries data
-     // read all
+    // 
     app.get('/countriesData', async (req, res) => {
       const cursor = countriesCollection.find()
       const result = await cursor.toArray()
       res.send(result)
     })
-    
+
     app.get('/allTour', async (req, res) => {
       const cursor = tourCollection.find()
       const result = await cursor.toArray()
       res.send(result)
     })
 
-  
+
     // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
