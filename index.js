@@ -28,7 +28,7 @@ async function run() {
 
     const tourCollection = client.db("TourismDB").collection("tour");
     const countriesCollection = client.db("TourismDB").collection("countries");
-    // console.log(countriesCollection)
+    
 
     // create a post
     app.post('/allTour', async (req, res) => {
@@ -115,14 +115,7 @@ async function run() {
       res.send(result)
     })
 
-    app.get('/allTour', async (req, res) => {
-      const cursor = tourCollection.find()
-      const result = await cursor.toArray()
-      res.send(result)
-    })
 
-
-    // Send a ping to confirm a successful connection
     // await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
