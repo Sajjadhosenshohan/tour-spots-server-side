@@ -54,7 +54,7 @@ nodemon index.js
 
 ## 🌍 Environment Variables
 
-- `BASE_URL` = https://tour-2b613.web.app
+- `CLIENT_URL` = "http://localhost:5173"
 
 - `PORT` = your_own_server_port
 
