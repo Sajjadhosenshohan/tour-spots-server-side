@@ -6,13 +6,22 @@ const app = express()
 const port = process.env.PORT || 5000
 
 // middleware
+// https://travel-server-virid.vercel.app
 
-app.use(cors())
+const corsOptions = {
+  origin: [
+    'http://localhost:5173',
+    "https://travel-server-virid.vercel.app"
+  ],
+  optionsSuccessStatus: 200
+}
+
+
+app.use(cors(corsOptions))
 app.use(express.json());
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.ejfr6xk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-console.log(uri)
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -23,12 +32,9 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
-    // await client.connect();
-
     const tourCollection = client.db("TourismDB").collection("tour");
     const countriesCollection = client.db("TourismDB").collection("countries");
-    
+
 
     // create a post
     app.post('/allTour', async (req, res) => {
